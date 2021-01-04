@@ -15,20 +15,18 @@ import com.sanmidev.themealdbcoroutines.R
 import com.sanmidev.themealdbcoroutines.data.model.category.CategoryModel
 import com.sanmidev.themealdbcoroutines.databinding.FragmentCategoriesBinding
 import com.sanmidev.themealdbcoroutines.features.meal.MealsFragmentArgs
-import com.sanmidev.themealdbcoroutines.utils.NetworkState
-import com.sanmidev.themealdbcoroutines.utils.dpToPx
+import com.sanmidev.themealdbcoroutines.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import io.cabriole.decorator.ColumnProvider
 import io.cabriole.decorator.GridMarginDecoration
 import kotlinx.coroutines.flow.collect
 
-private const val MARGIN_SIZE = 8
+
 
 @AndroidEntryPoint
 class CategoriesFragment : Fragment() {
 
     private val viewModel by viewModels<CategoriesViewModel>()
-
 
     private var _binding :  FragmentCategoriesBinding? = null
     private val binding : FragmentCategoriesBinding get() = _binding!!
@@ -37,12 +35,10 @@ class CategoriesFragment : Fragment() {
 
     private val navController by lazy { findNavController() }
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
          _binding = FragmentCategoriesBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -53,19 +49,20 @@ class CategoriesFragment : Fragment() {
 
         setupRecyclerView()
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launchWhenResumed {
             viewModel.getCategoriesNetworkState.collect { uiState ->
                 when(uiState){
                     is NetworkState.Loading -> {
-                        binding.progressBar.visibility = View.VISIBLE
+                        binding.progressBar.show()
                     }
                     is NetworkState.Success -> {
-                        binding.progressBar.visibility = View.GONE
+                        binding.progressBar.gone()
                         categoryAdapter!!.submitList(uiState.data)
                     }
                     is NetworkState.Error -> {
-                        binding.progressBar.visibility = View.GONE
+                        binding.progressBar.gone()
                     }
+                    NetworkState.NotFired -> { }
                 }
             }
         }

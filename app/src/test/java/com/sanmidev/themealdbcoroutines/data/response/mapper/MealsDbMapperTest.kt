@@ -15,7 +15,7 @@ import org.junit.Assert.*
 
 class MealsDbMapperTest {
 
-    val fixture = kotlinFixture() {
+    val fixture = kotlinFixture {
         nullabilityStrategy(NeverNullStrategy)
     }
 

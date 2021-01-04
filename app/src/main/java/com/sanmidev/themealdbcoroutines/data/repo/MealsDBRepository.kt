@@ -11,7 +11,7 @@ class MealsDBRepository(private val mealsDbService: MealsDbService, private val 
     }
 
     override suspend fun getMeal(name: String): List<MealModel> {
-        return mealsDbService.getMeal(name).map { mapper.mapMealResponseToModel(it) }
+        return mealsDbService.getMeal(name).data?.map { mapper.mapMealResponseToModel(it) } ?: emptyList()
     }
 
 

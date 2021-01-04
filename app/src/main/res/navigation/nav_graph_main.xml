@@ -17,8 +17,8 @@
     <fragment
         android:id="@+id/mealsFragment"
         android:name="com.sanmidev.themealdbcoroutines.features.meal.MealsFragment"
-        android:label="meals_fragment"
-        tools:layout="@layout/meals_fragment" >
+        android:label="Meals"
+        tools:layout="@layout/meals_fragment">
         <argument
             android:name="mealName"
             app:argType="string" />

@@ -8,4 +8,5 @@
 
     //CATEGORY
     <string name="category.category_image.content_description">Category Image</string>
+    <string name="meal_error">Could not get meal</string>
 </resources>

@@ -8,6 +8,7 @@ import com.sanmidev.themealdbcoroutines.data.model.category.CategoryModel
 import com.sanmidev.themealdbcoroutines.data.repo.MealsRepository
 import com.sanmidev.themealdbcoroutines.utils.NetworkState
 import com.sanmidev.themealdbcoroutines.utils.runOnMain
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,7 +19,7 @@ class CategoriesViewModel @ViewModelInject constructor(private val mealsReposito
     ViewModel() {
 
     private val _getCategoriesNetworkState =
-        MutableStateFlow<NetworkState<List<CategoryModel>>>(NetworkState.Loading)
+        MutableStateFlow<NetworkState<List<CategoryModel>>>(NetworkState.NotFired)
     val getCategoriesNetworkState
         get() = _getCategoriesNetworkState.asStateFlow()
 
@@ -34,14 +35,11 @@ class CategoriesViewModel @ViewModelInject constructor(private val mealsReposito
                 runOnMain {
                     _getCategoriesNetworkState.value = NetworkState.Success(response)
                 }
-            } catch (ex: IOException) {
-                runOnMain {
-                    _getCategoriesNetworkState.value =
-                        NetworkState.Error(R.string.get_catogories_error, ex)
-                }
+            } catch (cancellationEx: CancellationException) {
+                throw  cancellationEx
+            } catch (ex: Exception) {
+                _getCategoriesNetworkState.value = NetworkState.Error(R.string.meal_error, ex)
             }
         }
-
-
     }
 }

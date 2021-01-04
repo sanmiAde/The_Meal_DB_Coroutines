@@ -15,6 +15,7 @@ class CategoryAdapter(
     private val onCategoryClick: OnCategoryClick
 ) : ListAdapter<CategoryModel, CategoryViewHolder>(CategoryModelDiff) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
+
         val inflater = LayoutInflater.from(parent.context)
         val binding = CategoryListItemBinding.inflate(inflater, parent, false)
 
