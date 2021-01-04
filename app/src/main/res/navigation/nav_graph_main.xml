@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_categoriesFragment_to_mealsFragment"
             app:destination="@id/mealsFragment" />
+        <action
+            android:id="@+id/action_categoriesFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/mealsFragment"
@@ -23,4 +26,8 @@
             android:name="mealName"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.sanmidev.themealdbcoroutines.features.settings.SettingsFragment"
+        android:label="Settings" />
 </navigation>
