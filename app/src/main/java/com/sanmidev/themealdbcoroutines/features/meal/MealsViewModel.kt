@@ -37,20 +37,15 @@ class MealsViewModel @AssistedInject constructor(
         //TODO [OA_03-01-2020] Update this code to use kotlin result class. It should be a custom runcathcing as the current one breaks the coroutine cancellation
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                runOnMain {
-                    _mealsNetworkState.value = NetworkState.Loading
-                }
+                _mealsNetworkState.value = NetworkState.Loading
 
                 val response = mealsDBRepository.getMeal(mealName)
 
-                runOnMain {
-                    _mealsNetworkState.value = NetworkState.Success(response)
-                }
+                _mealsNetworkState.value = NetworkState.Success(response)
 
-            }catch (cancellationEx : CancellationException){
+            } catch (cancellationEx: CancellationException) {
                 throw  cancellationEx
-            }
-            catch (ex : IOException) {
+            } catch (ex: IOException) {
                 _mealsNetworkState.value = NetworkState.Error(R.string.meal_error, ex)
             }
         }

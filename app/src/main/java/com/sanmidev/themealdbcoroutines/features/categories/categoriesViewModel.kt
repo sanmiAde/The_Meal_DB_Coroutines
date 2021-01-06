@@ -1,6 +1,7 @@
 package com.sanmidev.themealdbcoroutines.features.categories
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sanmidev.themealdbcoroutines.R
@@ -23,18 +24,17 @@ class CategoriesViewModel @ViewModelInject constructor(private val mealsReposito
     val getCategoriesNetworkState
         get() = _getCategoriesNetworkState.asStateFlow()
 
+    val a = MutableLiveData<String>()
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            runOnMain {
-                _getCategoriesNetworkState.value = NetworkState.Loading
-            }
+            _getCategoriesNetworkState.value = NetworkState.Loading
 
             try {
                 val response = mealsRepository.getCategories()
 
-                runOnMain {
-                    _getCategoriesNetworkState.value = NetworkState.Success(response)
-                }
+                _getCategoriesNetworkState.value = NetworkState.Success(response)
+
             } catch (cancellationEx: CancellationException) {
                 throw  cancellationEx
             } catch (ex: Exception) {
