@@ -8,19 +8,17 @@ import com.sanmidev.themealdbcoroutines.R
 import com.sanmidev.themealdbcoroutines.data.model.category.CategoryModel
 import com.sanmidev.themealdbcoroutines.data.repo.MealsRepository
 import com.sanmidev.themealdbcoroutines.utils.NetworkState
-import com.sanmidev.themealdbcoroutines.utils.runOnMain
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.io.IOException
 
 class CategoriesViewModel @ViewModelInject constructor(private val mealsRepository: MealsRepository) :
     ViewModel() {
 
     private val _getCategoriesNetworkState =
-        MutableStateFlow<NetworkState<List<CategoryModel>>>(NetworkState.NotFired)
+        MutableStateFlow<NetworkState<List<CategoryModel>>>(NetworkState.Initial)
     val getCategoriesNetworkState
         get() = _getCategoriesNetworkState.asStateFlow()
 

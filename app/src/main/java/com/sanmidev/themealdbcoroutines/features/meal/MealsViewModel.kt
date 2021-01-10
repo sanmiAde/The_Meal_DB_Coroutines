@@ -1,17 +1,13 @@
 package com.sanmidev.themealdbcoroutines.features.meal
 
 
-import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.sanmidev.themealdbcoroutines.R
-import com.sanmidev.themealdbcoroutines.data.model.category.CategoryModel
 import com.sanmidev.themealdbcoroutines.data.model.meal.MealModel
 import com.sanmidev.themealdbcoroutines.data.repo.MealsDBRepository
 import com.sanmidev.themealdbcoroutines.utils.NetworkState
-import com.sanmidev.themealdbcoroutines.utils.runOnMain
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import kotlinx.coroutines.CancellationException
@@ -20,7 +16,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.io.IOException
-import java.lang.Exception
 
 class MealsViewModel @AssistedInject constructor(
     private val mealsDBRepository: MealsDBRepository,
@@ -28,7 +23,7 @@ class MealsViewModel @AssistedInject constructor(
 ) : ViewModel() {
 
     private val _mealsNetworkState =
-        MutableStateFlow<NetworkState<List<MealModel>>>(NetworkState.NotFired)
+        MutableStateFlow<NetworkState<List<MealModel>>>(NetworkState.Initial)
 
     val mealNetworkState get() = _mealsNetworkState.asStateFlow()
 

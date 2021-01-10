@@ -6,13 +6,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sanmidev.themealdbcoroutines.R
 import com.sanmidev.themealdbcoroutines.data.model.category.CategoryModel
 import com.sanmidev.themealdbcoroutines.databinding.FragmentCategoriesBinding
-import com.sanmidev.themealdbcoroutines.features.meal.MealsFragmentArgs
 import com.sanmidev.themealdbcoroutines.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import io.cabriole.decorator.ColumnProvider
@@ -62,7 +60,7 @@ class CategoriesFragment : Fragment() {
                     is NetworkState.Error -> {
                         binding.progressBar.gone()
                     }
-                    NetworkState.NotFired -> { }
+                    NetworkState.Initial -> { }
                 }
             }
         }

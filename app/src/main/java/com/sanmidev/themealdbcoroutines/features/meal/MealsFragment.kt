@@ -54,7 +54,7 @@ class MealsFragment : Fragment() {
         lifecycleScope.launchWhenStarted {
             viewModel.mealNetworkState.collect { uiState ->
                 when(uiState){
-                    NetworkState.NotFired -> {/** NO Op **/ }
+                    NetworkState.Initial -> {/** NO Op **/ }
                     NetworkState.Loading -> {
                         binding.pbMeals.show()
                     }
