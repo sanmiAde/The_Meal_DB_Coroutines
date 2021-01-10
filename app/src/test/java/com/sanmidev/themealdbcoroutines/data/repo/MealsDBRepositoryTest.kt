@@ -33,7 +33,6 @@ class MealsDBRepositoryTest {
         CUT = RepositoryFactory.provideMealsDbRepository(mockWebServer)
         dispatcher = NetworkFactory.provideMockWebServerDispatcher()
         fixture = Fixtures
-
     }
 
     @After
@@ -49,12 +48,12 @@ class MealsDBRepositoryTest {
         runBlocking {
 
             //WHEN
-            val categories =  CUT.getCategories()
+            val categories = CUT.getCategories()
             val request = mockWebServer.takeRequest()
 
             //THEN
             Truth.assertThat(request.path).isEqualTo(NetworkFactory.CATEGORIES_LIST_PATH)
-            Truth.assertThat(request.method).isEqualTo("GET")
+            Truth.assertThat(request.method).isEqualTo(NetworkFactory.GET_REQUEST)
         }
 
     }
@@ -67,13 +66,11 @@ class MealsDBRepositoryTest {
             mockWebServer.dispatcher = dispatcher
 
             //WHEN
-            val categories =  CUT.getCategories()
+            val categories = CUT.getCategories()
 
             //THEN
             Truth.assertThat(categories.size).isEqualTo(NUMBER_OF_ELEMENTS)
-
         }
-
     }
 
 
@@ -85,13 +82,14 @@ class MealsDBRepositoryTest {
             mockWebServer.dispatcher = dispatcher
 
             //WHEN
-            val categories =  CUT.getCategories()
+            val categories = CUT.getCategories()
             val actualCategory = categories[0]
 
             //THEN
             val expectedCategory = fixture.categoriesFixture?.categories!![0]
             Truth.assertThat(actualCategory.category).isEqualTo(expectedCategory.strCategory)
-            Truth.assertThat(actualCategory.description).isEqualTo(expectedCategory.strCategoryDescription)
+            Truth.assertThat(actualCategory.description)
+                .isEqualTo(expectedCategory.strCategoryDescription)
             Truth.assertThat(actualCategory.id).isEqualTo(expectedCategory.idCategory)
             Truth.assertThat(actualCategory.imageUrl).isEqualTo(expectedCategory.strCategoryThumb)
 
@@ -100,6 +98,51 @@ class MealsDBRepositoryTest {
     }
 
     @Test
-    fun getMeal() {
+    fun getMeals_shouldCallTheRightAPI_whenRequestIsMade() {
+        runBlocking {
+            //GIVEN
+            mockWebServer.dispatcher = dispatcher
+
+            //WHEN
+            CUT.getMeal(NetworkFactory.MEAL_PATH_QUERY_PARAM)
+            val request = mockWebServer.takeRequest()
+
+            //THEN
+            Truth.assertThat(request.path).isEqualTo(NetworkFactory.MEAL_PATH)
+            Truth.assertThat(request.method).isEqualTo(NetworkFactory.GET_REQUEST)
+        }
+    }
+
+    @Test
+    fun getMeals_shouldReturnListOfMeals_whenRequestIsSuccessful() {
+
+        runBlocking {
+            //GIVEN
+            mockWebServer.dispatcher = dispatcher
+
+            //WHEN
+           val meals =  CUT.getMeal(NetworkFactory.MEAL_PATH_QUERY_PARAM)
+
+            //THEN
+            Truth.assertThat(meals.size).isEqualTo(NUMBER_OF_ELEMENTS)
+        }
+    }
+
+    @Test
+    fun getMeals_shouldReturnCorrectData_whenRequestIsSuccessful(){
+        runBlocking {
+            //GIVEN
+            mockWebServer.dispatcher = dispatcher
+
+            //WHEN
+            val meals = CUT.getMeal(NetworkFactory.MEAL_PATH_QUERY_PARAM)
+            val actualMeal = meals[0]
+
+            //THEN
+            val expectedMeal = Fixtures.mealsResponseFixture?.data!![0]
+            Truth.assertThat(actualMeal.id).isEqualTo(expectedMeal.idMeal)
+            Truth.assertThat(actualMeal.imageUrl).isEqualTo(expectedMeal.strMealThumb)
+            Truth.assertThat(actualMeal.name).isEqualTo(expectedMeal.strMeal)
+        }
     }
 }
