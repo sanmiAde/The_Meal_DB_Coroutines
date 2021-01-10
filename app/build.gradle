@@ -122,7 +122,9 @@ dependencies {
     implementation "com.squareup.okhttp3:mockwebserver:$mock_web_server_version"
     implementation "com.squareup.okhttp3:okhttp:$mock_web_server_version"
 
-
+    //TURBINE
+    testImplementation 'app.cash.turbine:turbine:0.3.0'
+    
     //TEST
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

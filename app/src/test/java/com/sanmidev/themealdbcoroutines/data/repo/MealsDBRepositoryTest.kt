@@ -121,7 +121,7 @@ class MealsDBRepositoryTest {
             mockWebServer.dispatcher = dispatcher
 
             //WHEN
-           val meals =  CUT.getMeal(NetworkFactory.MEAL_PATH_QUERY_PARAM)
+            val meals = CUT.getMeal(NetworkFactory.MEAL_PATH_QUERY_PARAM)
 
             //THEN
             Truth.assertThat(meals.size).isEqualTo(NUMBER_OF_ELEMENTS)
@@ -129,7 +129,7 @@ class MealsDBRepositoryTest {
     }
 
     @Test
-    fun getMeals_shouldReturnCorrectData_whenRequestIsSuccessful(){
+    fun getMeals_shouldReturnCorrectData_whenRequestIsSuccessful() {
         runBlocking {
             //GIVEN
             mockWebServer.dispatcher = dispatcher

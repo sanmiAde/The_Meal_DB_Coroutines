@@ -22,8 +22,6 @@ class CategoriesViewModel @ViewModelInject constructor(private val mealsReposito
     val getCategoriesNetworkState
         get() = _getCategoriesNetworkState.asStateFlow()
 
-    val a = MutableLiveData<String>()
-
     init {
         viewModelScope.launch(Dispatchers.IO) {
             _getCategoriesNetworkState.value = NetworkState.Loading

@@ -40,6 +40,14 @@ object NetworkFactory {
         return provideRetrofit(mockWebServer).create(MealsDbService::class.java)
     }
 
+    fun MockWebServer.provideErrorResponse() {
+        enqueue(
+            MockResponse()
+                .setBody("No records found")
+                .setResponseCode(HttpURLConnection.HTTP_NOT_FOUND)
+        )
+    }
+
     fun provideMockWebServerDispatcher(): Dispatcher {
         return object : Dispatcher() {
             override fun dispatch(request: RecordedRequest): MockResponse {
