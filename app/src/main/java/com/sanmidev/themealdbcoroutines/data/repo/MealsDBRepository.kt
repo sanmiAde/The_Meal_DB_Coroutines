@@ -14,5 +14,4 @@ class MealsDBRepository(private val mealsDbService: MealsDbService, private val 
         return mealsDbService.getMeal(name).data?.map { mapper.mapMealResponseToModel(it) } ?: emptyList()
     }
 
-
 }

@@ -12,6 +12,7 @@ buildscript {
         moshi_converter_version = "2.9.0"
         dagger_hilt_version = "2.29.1-alpha"
         decorator_version = "1.2.0"
+        mock_web_server_version = "4.7.2"
     }
 
     repositories {
