@@ -16,6 +16,7 @@ import java.net.HttpURLConnection
 object NetworkFactory {
     internal const val CATEGORIES_LIST_PATH = "/api/json/v1/1/categories.php"
     internal const val MEAL_PATH_QUERY_PARAM = "Seafood"
+    interface const val WRONG_MEAL_QUERY_PARAM = "wrong"
     internal const val MEAL_PATH = "/api/json/v1/1/filter.php?c=$MEAL_PATH_QUERY_PARAM"
     internal const val GET_REQUEST = "GET"
     internal const val POST_REQUEST = "POST"

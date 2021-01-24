@@ -28,9 +28,11 @@ class CategoriesViewModel @ViewModelInject constructor(private val mealsReposito
 
             try {
                 val response = mealsRepository.getCategories()
-
-                _getCategoriesNetworkState.value = NetworkState.Success(response)
-
+                if (response.isEmpty()) {
+                    _getCategoriesNetworkState.value = NetworkState.Empty
+                } else {
+                    _getCategoriesNetworkState.value = NetworkState.Success(response)
+                }
             } catch (cancellationEx: CancellationException) {
                 throw  cancellationEx
             } catch (ex: Exception) {

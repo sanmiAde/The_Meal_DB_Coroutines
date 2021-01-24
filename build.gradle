@@ -13,7 +13,7 @@ buildscript {
         dagger_hilt_version = "2.29.1-alpha"
         decorator_version = "1.2.0"
         mock_web_server_version = "4.7.2"
-
+        coroutines_test_version = "1.4.2"
     }
 
     repositories {
@@ -21,10 +21,10 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.0-beta03'
+        classpath 'com.android.tools.build:gradle:7.0.0-alpha04'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
-        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.29.1-alpha'
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.31-alpha'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

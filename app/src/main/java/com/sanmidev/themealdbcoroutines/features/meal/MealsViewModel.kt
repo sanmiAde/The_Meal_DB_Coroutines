@@ -40,7 +40,7 @@ class MealsViewModel @AssistedInject constructor(
 
             } catch (cancellationEx: CancellationException) {
                 throw  cancellationEx
-            } catch (ex: IOException) {
+            } catch (ex: Exception) {
                 _mealsNetworkState.value = NetworkState.Error(R.string.meal_error, ex)
             }
         }
